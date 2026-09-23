@@ -40,28 +40,28 @@
             padding-bottom: 8px;
             margin-bottom: 12px;
             position: relative;
-            min-height: 55px;
+            text-align: center;
         }
         .header-car-img {
-            position: absolute;
-            left: 5px;
-            top: 2px;
-            width: 110px;
-            height: 50px;
+            display: block;
+            margin: 0 auto 5px auto;
+            width: 90px;
+            height: 40px;
             object-fit: contain;
         }
         .header-title h3 {
             font-weight: 900;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-size: 22px;
+            font-size: 20px;
             margin-bottom: 2px;
         }
         .form-line {
             display: flex;
             align-items: baseline;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-size: 13px;
+            flex-wrap: wrap;
         }
         .form-line label {
             font-weight: bold;
@@ -80,6 +80,7 @@
             flex-grow: 1;
             color: #000;
             font-weight: 600;
+            min-width: 120px;
         }
         .form-line input:focus {
             outline: none;
@@ -111,6 +112,27 @@
             background: #fff;
             outline: 1px solid #0d6efd;
         }
+
+        /* Responsividade Perfeita para Telemóveis */
+        @media (max-width: 768px) {
+            body { padding: 4px; }
+            .invoice-card { padding: 12px 15px; margin: 5px auto; }
+            .form-line {
+                flex-direction: column;
+                align-items: stretch;
+                margin-bottom: 10px;
+            }
+            .form-line label {
+                margin-top: 4px;
+                margin-right: 0;
+            }
+            .form-line input {
+                width: 100% !important;
+                flex-grow: unset !important;
+            }
+            .header-title h3 { font-size: 18px; }
+        }
+
         @media print {
             @page { size: A4 portrait; margin: 5mm; }
             body { background-color: #fff; padding: 0; }
@@ -160,8 +182,8 @@
 
     <!-- Ordem de Serviço Principal -->
     <div class="invoice-card">
-        <div class="text-center header-title">
-            <!-- Vetor SVG de Carro Esportivo de Alta Qualidade -->
+        <div class="header-title">
+            <!-- Vetor SVG de Carro Esportivo Centralizado e Responsivo -->
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%23222' d='M504 256c0-13.7-11.3-25-25-25H33.3c-13.7 0-25 11.3-25 25s11.3 25 25 25h445.7c13.7 0 25-11.3 25-25zm-22.3-51.4l-42-84c-5-10-15.3-16.6-26.6-16.6H136.9c-11.3 0-21.6 6.6-26.6 16.6l-42 84c-11.8 23.6-18 49.5-18 75.8v75.6c0 13.7 11.3 25 25 25s25-11.3 25-25v-25.6h352v25.6c0 13.7 11.3 25 25 25s25-11.3 25-25v-75.6c0-26.3-6.2-52.2-18-75.8zM148.6 133.6h214.8l32 64H116.6l32-64zM106 312c-19.9 0-36-16.1-36-36s16.1-36 36-36 36 16.1 36 36-16.1 36-36 36zm300 0c-19.9 0-36-16.1-36-36s16.1-36 36-36 36 16.1 36 36-16.1 36-36 36z'/></svg>" alt="Carro Esportivo" class="header-car-img">
             <h3 class="mb-1">Auto Mecânica Vadão</h3>
             <p class="mb-1 text-dark fw-bold" style="font-size: 11px; letter-spacing: 0.3px;">• Motor • Freio • Câmbio • Suspensão • Embreagem • Bateria • Troca de óleo e outros •</p>
@@ -317,7 +339,7 @@
         if (localStorage.getItem('vadao_logado') === 'true') {
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('appContainer').style.display = 'block';
-            novaOS(); // Abre sempre limpo com nova OS
+            novaOS();
             buscarOrdensServico();
         } else {
             document.getElementById('loginContainer').style.display = 'block';
@@ -401,8 +423,8 @@
             novaOS();
             buscarOrdensServico();
         } catch (error) {
-            console.error("Erro ao salvar: ", error);
-            alert('Erro ao salvar no Firebase. Verifique o console.');
+            console.error("Erro detalhado ao salvar no Firebase: ", error);
+            alert('Erro ao salvar no Firebase: ' + error.message);
         }
     }
 
@@ -468,7 +490,18 @@
 
     window.novaOS = function() {
         carregarProximoNumero();
-        document.getElementById('osForm').reset();
+        document.getElementById('clienteNome').value = '';
+        document.getElementById('clienteFone').value = '';
+        document.getElementById('clienteEndereco').value = '';
+        document.getElementById('veiculoMarca').value = '';
+        document.getElementById('veiculoPlaca').value = '';
+        document.getElementById('veiculoAno').value = '';
+        document.getElementById('veiculoCor').value = '';
+        document.getElementById('veiculoKm').value = '';
+        document.getElementById('dataEntrada').value = '';
+        document.getElementById('dataEntrega').value = '';
+        document.getElementById('maoDeObra').value = '0.00';
+
         const tbody = document.getElementById('itensTableBody');
         tbody.innerHTML = `
             <tr>
