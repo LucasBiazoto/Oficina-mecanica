@@ -116,6 +116,11 @@
             outline: 1px solid #0d6efd;
         }
 
+        /* Classe para exibir texto impresso perfeitamente */
+        .print-text {
+            display: none;
+        }
+
         /* Responsividade para Ecrãs Móveis */
         @media (max-width: 768px) {
             body { padding: 4px; }
@@ -142,10 +147,14 @@
             .header-title p { text-align: center !important; }
             .form-line { flex-direction: row !important; align-items: baseline !important; margin-bottom: 4px !important; }
             .form-line label { margin-right: 4px !important; margin-top: 0 !important; color: #000 !important; }
-            .form-line input { background: transparent !important; border-bottom: 1px solid #000 !important; height: 20px !important; color: #000 !important; -webkit-text-fill-color: #000 !important; opacity: 1 !important; font-weight: 600 !important; }
+            
+            /* Oculta o input bruto na impressão e mostra o texto formatado */
+            .form-line input { display: none !important; }
+            .print-text { display: inline-block !important; border-bottom: 1px solid #000; padding: 0 4px; font-weight: 600; color: #000 !important; min-height: 18px; }
+
             .table-items td, .table-items th { padding: 2px 5px !important; font-size: 11px !important; color: #000 !important; }
-            .table-items input { color: #000 !important; -webkit-text-fill-color: #000 !important; opacity: 1 !important; }
-            #totalGeral { color: #dc3545 !important; -webkit-text-fill-color: #dc3545 !important; }
+            .table-items input { color: #000 !important; }
+            #totalGeral { color: #dc3545 !important; }
         }
     </style>
 </head>
@@ -203,42 +212,60 @@
                 <div class="col-12">
                     <div class="form-line">
                         <label>Nome:</label>
-                        <input type="text" id="clienteNome" placeholder="Nome do cliente" style="flex: 4;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="clienteNome" placeholder="Nome do cliente" style="flex: 4;">
+                        <span class="print-text" id="print_clienteNome" style="flex: 4;"></span>
+
                         <label style="margin-left: 10px;">Fone:</label>
-                        <input type="text" id="clienteFone" placeholder="(11) 99999-9999" style="flex: 2;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="clienteFone" placeholder="(11) 99999-9999" style="flex: 2;">
+                        <span class="print-text" id="print_clienteFone" style="flex: 2;"></span>
+
                         <label style="margin-left: 10px;">Nº OS:</label>
-                        <input type="text" id="osNumero" class="fw-bold text-center bg-warning-subtle text-dark" readonly style="flex: 1; font-size: 14px;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="osNumero" class="fw-bold text-center bg-warning-subtle text-dark" readonly style="flex: 1; font-size: 14px;">
+                        <span class="print-text fw-bold text-center" id="print_osNumero" style="flex: 1;"></span>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <div class="form-line">
                         <label>Endereço:</label>
-                        <input type="text" id="clienteEndereco" placeholder="Endereço do cliente" style="flex: 3;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="clienteEndereco" placeholder="Endereço do cliente" style="flex: 3;">
+                        <span class="print-text" id="print_clienteEndereco" style="flex: 3;"></span>
+
                         <label style="margin-left: 10px;">Veículo:</label>
-                        <input type="text" id="veiculoMarca" placeholder="Marca/Modelo" style="flex: 2;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="veiculoMarca" placeholder="Marca/Modelo" style="flex: 2;">
+                        <span class="print-text" id="print_veiculoMarca" style="flex: 2;"></span>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <div class="form-line">
                         <label>Placa:</label>
-                        <input type="text" id="veiculoPlaca" placeholder="Placa" style="flex: 1;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="veiculoPlaca" placeholder="Placa" style="flex: 1;">
+                        <span class="print-text" id="print_veiculoPlaca" style="flex: 1;"></span>
+
                         <label style="margin-left: 8px;">Ano:</label>
-                        <input type="text" id="veiculoAno" placeholder="Ano" style="flex: 1;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="veiculoAno" placeholder="Ano" style="flex: 1;">
+                        <span class="print-text" id="print_veiculoAno" style="flex: 1;"></span>
+
                         <label style="margin-left: 8px;">Cor:</label>
-                        <input type="text" id="veiculoCor" placeholder="Cor" style="flex: 1;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="veiculoCor" placeholder="Cor" style="flex: 1;">
+                        <span class="print-text" id="print_veiculoCor" style="flex: 1;"></span>
+
                         <label style="margin-left: 8px;">Km:</label>
-                        <input type="text" id="veiculoKm" placeholder="Km" style="flex: 1;" oninput="this.setAttribute('value', this.value)">
+                        <input type="text" id="veiculoKm" placeholder="Km" style="flex: 1;">
+                        <span class="print-text" id="print_veiculoKm" style="flex: 1;"></span>
                     </div>
                 </div>
 
                 <div class="col-12">
                     <div class="form-line">
                         <label>Entrada em:</label>
-                        <input type="date" id="dataEntrada" style="flex: 1;" oninput="this.setAttribute('value', this.value)">
+                        <input type="date" id="dataEntrada" style="flex: 1;">
+                        <span class="print-text" id="print_dataEntrada" style="flex: 1;"></span>
+
                         <label style="margin-left: 15px;">Entrega em:</label>
-                        <input type="date" id="dataEntrega" style="flex: 1;" oninput="this.setAttribute('value', this.value)">
+                        <input type="date" id="dataEntrega" style="flex: 1;">
+                        <span class="print-text" id="print_dataEntrega" style="flex: 1;"></span>
                     </div>
                 </div>
             </div>
@@ -260,8 +287,8 @@
                     </thead>
                     <tbody id="itensTableBody">
                         <tr>
-                            <td><input type="text" class="item-desc" placeholder="Descrição do serviço ou peça" oninput="this.setAttribute('value', this.value)"></td>
-                            <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="0.00" oninput="calcularTotais(); this.setAttribute('value', this.value);"></td>
+                            <td><input type="text" class="item-desc" placeholder="Descrição do serviço ou peça"></td>
+                            <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="0.00" oninput="calcularTotais()"></td>
                             <td class="no-print text-center"><button type="button" class="btn btn-sm text-danger p-0" onclick="removerLinha(this)"><i class="fa fa-trash"></i></button></td>
                         </tr>
                     </tbody>
@@ -282,15 +309,15 @@
                     <table class="table table-sm table-borderless mb-0 bg-light p-2 rounded border" style="font-size: 12.5px;">
                         <tr>
                             <td class="fw-bold py-1 text-end text-secondary">Material Usado:</td>
-                            <td class="py-1"><input type="text" id="totalMaterial" class="form-control form-control-sm text-end fw-bold py-0 bg-transparent border-0" readonly value="0.00" style="font-size: 12.5px;" oninput="this.setAttribute('value', this.value)"></td>
+                            <td class="py-1"><input type="text" id="totalMaterial" class="form-control form-control-sm text-end fw-bold py-0 bg-transparent border-0" readonly value="0.00" style="font-size: 12.5px;"></td>
                         </tr>
                         <tr>
                             <td class="fw-bold py-1 text-end text-secondary">Mão de Obra:</td>
-                            <td class="py-1"><input type="number" step="0.01" id="maoDeObra" class="form-control form-control-sm text-end fw-bold py-0 bg-white border" value="0.00" oninput="calcularTotais(); this.setAttribute('value', this.value);" style="font-size: 12.5px;"></td>
+                            <td class="py-1"><input type="number" step="0.01" id="maoDeObra" class="form-control form-control-sm text-end fw-bold py-0 bg-white border" value="0.00" oninput="calcularTotais()" style="font-size: 12.5px;"></td>
                         </tr>
                         <tr class="border-top border-dark">
                             <td class="fw-bold text-dark py-1 text-end" style="font-size: 13.5px;">TOTAL R$:</td>
-                            <td class="py-1"><input type="text" id="totalGeral" class="form-control form-control-sm text-end fw-black text-danger py-0 bg-white border border-danger" readonly value="0.00" style="font-size: 14.5px; font-weight: 900;" oninput="this.setAttribute('value', this.value)"></td>
+                            <td class="py-1"><input type="text" id="totalGeral" class="form-control form-control-sm text-end fw-black text-danger py-0 bg-white border border-danger" readonly value="0.00" style="font-size: 14.5px; font-weight: 900;"></td>
                         </tr>
                     </table>
                 </div>
@@ -364,15 +391,10 @@
                     proximo = parseInt(data.osNumero) + 1;
                 }
             });
-            const numStr = String(proximo).padStart(4, '0');
-            const campoOs = document.getElementById('osNumero');
-            campoOs.value = numStr;
-            campoOs.setAttribute('value', numStr);
+            document.getElementById('osNumero').value = String(proximo).padStart(4, '0');
         } catch (e) {
             console.error("Erro ao buscar próximo número: ", e);
-            const campoOs = document.getElementById('osNumero');
-            campoOs.value = "0001";
-            campoOs.setAttribute('value', "0001");
+            document.getElementById('osNumero').value = "0001";
         }
     }
 
@@ -380,8 +402,8 @@
         const tbody = document.getElementById('itensTableBody');
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td><input type="text" class="item-desc" placeholder="Descrição do serviço ou peça" oninput="this.setAttribute('value', this.value)"></td>
-            <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="0.00" oninput="calcularTotais(); this.setAttribute('value', this.value);"></td>
+            <td><input type="text" class="item-desc" placeholder="Descrição do serviço ou peça"></td>
+            <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="0.00" oninput="calcularTotais()"></td>
             <td class="no-print text-center"><button type="button" class="btn btn-sm text-danger p-0" onclick="removerLinha(this)"><i class="fa fa-trash"></i></button></td>
         `;
         tbody.appendChild(tr);
@@ -397,14 +419,9 @@
         const precos = document.querySelectorAll('.item-preco');
         let somaMateriais = 0;
         precos.forEach(input => { somaMateriais += parseFloat(input.value) || 0; });
-        const matInput = document.getElementById('totalMaterial');
-        matInput.value = somaMateriais.toFixed(2);
-        matInput.setAttribute('value', matInput.value);
-
+        document.getElementById('totalMaterial').value = somaMateriais.toFixed(2);
         const maoDeObra = parseFloat(document.getElementById('maoDeObra').value) || 0;
-        const totalInput = document.getElementById('totalGeral');
-        totalInput.value = (somaMateriais + maoDeObra).toFixed(2);
-        totalInput.setAttribute('value', totalInput.value);
+        document.getElementById('totalGeral').value = (somaMateriais + maoDeObra).toFixed(2);
     }
 
     window.salvarNoFirebase = async function() {
@@ -481,36 +498,26 @@
     }
 
     window.carregarOSNaTela = function(os) {
-        const campos = {
-            'osNumero': os.osNumero,
-            'clienteNome': os.clienteNome,
-            'clienteFone': os.clienteFone || '',
-            'clienteEndereco': os.clienteEndereco || '',
-            'veiculoMarca': os.veiculoMarca || '',
-            'veiculoPlaca': os.veiculoPlaca || '',
-            'veiculoAno': os.veiculoAno || '',
-            'veiculoCor': os.veiculoCor || '',
-            'veiculoKm': os.veiculoKm || '',
-            'dataEntrada': os.dataEntrada || '',
-            'dataEntrega': os.dataEntrega || '',
-            'maoDeObra': os.maoDeObra
-        };
-
-        for (let id in campos) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.value = campos[id];
-                el.setAttribute('value', campos[id]);
-            }
-        }
+        document.getElementById('osNumero').value = os.osNumero;
+        document.getElementById('clienteNome').value = os.clienteNome;
+        document.getElementById('clienteFone').value = os.clienteFone || '';
+        document.getElementById('clienteEndereco').value = os.clienteEndereco || '';
+        document.getElementById('veiculoMarca').value = os.veiculoMarca || '';
+        document.getElementById('veiculoPlaca').value = os.veiculoPlaca || '';
+        document.getElementById('veiculoAno').value = os.veiculoAno || '';
+        document.getElementById('veiculoCor').value = os.veiculoCor || '';
+        document.getElementById('veiculoKm').value = os.veiculoKm || '';
+        document.getElementById('dataEntrada').value = os.dataEntrada || '';
+        document.getElementById('dataEntrega').value = os.dataEntrega || '';
+        document.getElementById('maoDeObra').value = os.maoDeObra;
 
         const tbody = document.getElementById('itensTableBody');
         tbody.innerHTML = '';
         os.itens.forEach(i => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td><input type="text" class="item-desc" value="${i.desc}" oninput="this.setAttribute('value', this.value)"></td>
-                <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="${i.preco}" oninput="calcularTotais(); this.setAttribute('value', this.value);"></td>
+                <td><input type="text" class="item-desc" value="${i.desc}"></td>
+                <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="${i.preco}" oninput="calcularTotais()"></td>
                 <td class="no-print text-center"><button type="button" class="btn btn-sm text-danger p-0" onclick="removerLinha(this)"><i class="fa fa-trash"></i></button></td>
             `;
             tbody.appendChild(tr);
@@ -521,28 +528,42 @@
 
     window.novaOS = function() {
         carregarProximoNumero();
-        const inputs = document.querySelectorAll('#osForm input:not(#osNumero)');
-        inputs.forEach(input => {
-            input.value = '';
-            input.setAttribute('value', '');
-        });
+        document.getElementById('clienteNome').value = '';
+        document.getElementById('clienteFone').value = '';
+        document.getElementById('clienteEndereco').value = '';
+        document.getElementById('veiculoMarca').value = '';
+        document.getElementById('veiculoPlaca').value = '';
+        document.getElementById('veiculoAno').value = '';
+        document.getElementById('veiculoCor').value = '';
+        document.getElementById('veiculoKm').value = '';
+        document.getElementById('dataEntrada').value = '';
+        document.getElementById('dataEntrega').value = '';
         document.getElementById('maoDeObra').value = '0.00';
-        document.getElementById('maoDeObra').setAttribute('value', '0.00');
         document.getElementById('filtroTermo').value = '';
         document.getElementById('resultadoBusca').innerHTML = '<div class="p-2 text-muted">Digite um termo e clique em Filtrar para buscar ordens anteriores.</div>';
 
         const tbody = document.getElementById('itensTableBody');
         tbody.innerHTML = `
             <tr>
-                <td><input type="text" class="item-desc" placeholder="Descrição do serviço ou peça" oninput="this.setAttribute('value', this.value)"></td>
-                <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="0.00" oninput="calcularTotais(); this.setAttribute('value', this.value);"></td>
+                <td><input type="text" class="item-desc" placeholder="Descrição do serviço ou peça"></td>
+                <td><input type="number" step="0.01" class="item-preco text-end fw-bold text-dark" value="0.00" oninput="calcularTotais()"></td>
                 <td class="no-print text-center"><button type="button" class="btn btn-sm text-danger p-0" onclick="removerLinha(this)"><i class="fa fa-trash"></i></button></td>
             </tr>
         `;
         calcularTotais();
     }
 
-    window.gerarPDF = function() { window.print(); }
+    window.gerarPDF = function() {
+        // Preenche os spans de impressão com os valores atuais dos inputs antes de gerar o PDF
+        const ids = ['osNumero', 'clienteNome', 'clienteFone', 'clienteEndereco', 'veiculoMarca', 'veiculoPlaca', 'veiculoAno', 'veiculoCor', 'veiculoKm', 'dataEntrada', 'dataEntrega'];
+        ids.forEach(id => {
+            const val = document.getElementById(id).value;
+            const span = document.getElementById('print_' + id);
+            if (span) span.innerText = val;
+        });
+
+        window.print();
+    }
 
     window.onload = function() {
         verificarSessao();
