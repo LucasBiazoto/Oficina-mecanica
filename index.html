@@ -116,7 +116,7 @@
             outline: 1px solid #0d6efd;
         }
 
-        /* Responsividade para Ecrãs Móveis (Apenas visualização) */
+        /* Responsividade para Ecrãs Móveis */
         @media (max-width: 768px) {
             body { padding: 4px; }
             .invoice-card { padding: 12px 15px; margin: 5px auto; }
@@ -130,10 +130,10 @@
             .form-line input { width: 100% !important; flex-grow: unset !important; }
         }
 
-        /* Regras estritas de Impressão e PDF (Mantém o formato A4 original impecável) */
+        /* Regras de Impressão e PDF Perfeitas */
         @media print {
             @page { size: A4 portrait; margin: 5mm; }
-            body { background-color: #fff; padding: 0; font-size: 11px; }
+            body { background-color: #fff; padding: 0; font-size: 11px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             #loginContainer, .no-print { display: none !important; }
             .invoice-card { border: 1.5px solid #000 !important; box-shadow: none !important; margin: 0 !important; padding: 8px 12px !important; max-width: 100% !important; width: 100% !important; }
             .header-title { position: relative !important; min-height: 45px !important; margin-bottom: 8px !important; padding-bottom: 4px !important; }
@@ -142,7 +142,7 @@
             .header-title p { text-align: center !important; }
             .form-line { flex-direction: row !important; align-items: baseline !important; margin-bottom: 4px !important; }
             .form-line label { margin-right: 4px !important; margin-top: 0 !important; }
-            .form-line input { background: transparent !important; border-bottom: 1px solid #000 !important; height: 20px !important; }
+            .form-line input { background: transparent !important; border-bottom: 1px solid #000 !important; height: 20px !important; color: #000 !important; -webkit-text-fill-color: #000 !important; }
             .table-items td, .table-items th { padding: 2px 5px !important; font-size: 11px !important; }
         }
     </style>
@@ -234,9 +234,9 @@
                 <div class="col-12">
                     <div class="form-line">
                         <label>Entrada em:</label>
-                        <input type="text" id="dataEntrada" placeholder="DD/MM/AAAA" style="flex: 1;">
+                        <input type="date" id="dataEntrada" style="flex: 1;">
                         <label style="margin-left: 15px;">Entrega em:</label>
-                        <input type="text" id="dataEntrega" placeholder="DD/MM/AAAA" style="flex: 1;">
+                        <input type="date" id="dataEntrega" style="flex: 1;">
                     </div>
                 </div>
             </div>
@@ -345,7 +345,6 @@
             document.getElementById('loginContainer').style.display = 'none';
             document.getElementById('appContainer').style.display = 'block';
             novaOS();
-            buscarOrdensServico();
         } else {
             document.getElementById('loginContainer').style.display = 'block';
             document.getElementById('appContainer').style.display = 'none';
@@ -426,7 +425,6 @@
             await addDoc(collection(db, "ordens_servico"), dadosOS);
             alert('OS Nº ' + dadosOS.osNumero + ' salva com sucesso na nuvem!');
             novaOS();
-            buscarOrdensServico();
         } catch (error) {
             console.error("Erro detalhado ao salvar no Firebase: ", error);
             alert('Erro ao salvar no Firebase: ' + error.message);
@@ -434,18 +432,24 @@
     }
 
     window.buscarOrdensServico = async function() {
-        const termo = document.getElementById('filtroTermo') ? document.getElementById('filtroTermo').value.toLowerCase() : '';
+        const termo = document.getElementById('filtroTermo').value.toLowerCase().trim();
+        const divResultado = document.getElementById('resultadoBusca');
+        divResultado.innerHTML = '';
+
+        if (!termo) {
+            divResultado.innerHTML = '<div class="p-2 text-muted">Digite um termo e clique em Filtrar para buscar ordens anteriores.</div>';
+            return;
+        }
+
         try {
             const querySnapshot = await getDocs(collection(db, "ordens_servico"));
-            const divResultado = document.getElementById('resultadoBusca');
-            divResultado.innerHTML = '';
             let contador = 0;
 
             querySnapshot.forEach((docSnap) => {
                 const os = docSnap.data();
                 const textoBusca = `${os.osNumero} ${os.clienteNome} ${os.clienteFone} ${os.veiculoPlaca} ${os.dataEntrada}`.toLowerCase();
                 
-                if (!termo || textoBusca.includes(termo)) {
+                if (textoBusca.includes(termo)) {
                     contador++;
                     const item = document.createElement('a');
                     item.href = '#';
@@ -457,7 +461,7 @@
             });
 
             if (contador === 0) {
-                divResultado.innerHTML = '<div class="p-2 text-muted">Nenhuma ordem encontrada.</div>';
+                divResultado.innerHTML = '<div class="p-2 text-muted">Nenhuma ordem encontrada para esta busca.</div>';
             }
         } catch (e) {
             console.error('Erro na busca', e);
@@ -506,6 +510,8 @@
         document.getElementById('dataEntrada').value = '';
         document.getElementById('dataEntrega').value = '';
         document.getElementById('maoDeObra').value = '0.00';
+        document.getElementById('filtroTermo').value = '';
+        document.getElementById('resultadoBusca').innerHTML = '<div class="p-2 text-muted">Digite um termo e clique em Filtrar para buscar ordens anteriores.</div>';
 
         const tbody = document.getElementById('itensTableBody');
         tbody.innerHTML = `
