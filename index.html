@@ -130,7 +130,7 @@
             .form-line input { width: 100% !important; flex-grow: unset !important; }
         }
 
-        /* Regras de Impressão e PDF Perfeitas */
+        /* Regras de Impressão e PDF Perfeitas (Força exibição e cores dos inputs) */
         @media print {
             @page { size: A4 portrait; margin: 5mm; }
             body { background-color: #fff; padding: 0; font-size: 11px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -141,9 +141,11 @@
             .header-title h3 { text-align: center !important; font-size: 18px !important; }
             .header-title p { text-align: center !important; }
             .form-line { flex-direction: row !important; align-items: baseline !important; margin-bottom: 4px !important; }
-            .form-line label { margin-right: 4px !important; margin-top: 0 !important; }
-            .form-line input { background: transparent !important; border-bottom: 1px solid #000 !important; height: 20px !important; color: #000 !important; -webkit-text-fill-color: #000 !important; }
-            .table-items td, .table-items th { padding: 2px 5px !important; font-size: 11px !important; }
+            .form-line label { margin-right: 4px !important; margin-top: 0 !important; color: #000 !important; }
+            .form-line input { background: transparent !important; border-bottom: 1px solid #000 !important; height: 20px !important; color: #000 !important; -webkit-text-fill-color: #000 !important; opacity: 1 !important; font-weight: 600 !important; }
+            .table-items td, .table-items th { padding: 2px 5px !important; font-size: 11px !important; color: #000 !important; }
+            .table-items input { color: #000 !important; -webkit-text-fill-color: #000 !important; opacity: 1 !important; }
+            #totalGeral { color: #dc3545 !important; -webkit-text-fill-color: #dc3545 !important; }
         }
     </style>
 </head>
