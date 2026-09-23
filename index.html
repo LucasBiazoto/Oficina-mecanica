@@ -40,28 +40,32 @@
             padding-bottom: 8px;
             margin-bottom: 12px;
             position: relative;
-            text-align: center;
+            min-height: 55px;
         }
         .header-car-img {
-            display: block;
-            margin: 0 auto 5px auto;
-            width: 90px;
-            height: 40px;
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 110px;
+            height: 50px;
             object-fit: contain;
         }
         .header-title h3 {
             font-weight: 900;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 2px;
+            text-align: center;
+        }
+        .header-title p {
+            text-align: center;
         }
         .form-line {
             display: flex;
             align-items: baseline;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 13px;
-            flex-wrap: wrap;
         }
         .form-line label {
             font-weight: bold;
@@ -80,7 +84,6 @@
             flex-grow: 1;
             color: #000;
             font-weight: 600;
-            min-width: 120px;
         }
         .form-line input:focus {
             outline: none;
@@ -113,32 +116,34 @@
             outline: 1px solid #0d6efd;
         }
 
-        /* Responsividade Perfeita para Telemóveis */
+        /* Responsividade para Ecrãs Móveis (Apenas visualização) */
         @media (max-width: 768px) {
             body { padding: 4px; }
             .invoice-card { padding: 12px 15px; margin: 5px auto; }
+            .header-car-img { position: static; display: block; margin: 0 auto 5px auto; }
             .form-line {
                 flex-direction: column;
                 align-items: stretch;
                 margin-bottom: 10px;
             }
-            .form-line label {
-                margin-top: 4px;
-                margin-right: 0;
-            }
-            .form-line input {
-                width: 100% !important;
-                flex-grow: unset !important;
-            }
-            .header-title h3 { font-size: 18px; }
+            .form-line label { margin-top: 4px; margin-right: 0; }
+            .form-line input { width: 100% !important; flex-grow: unset !important; }
         }
 
+        /* Regras estritas de Impressão e PDF (Mantém o formato A4 original impecável) */
         @media print {
             @page { size: A4 portrait; margin: 5mm; }
-            body { background-color: #fff; padding: 0; }
+            body { background-color: #fff; padding: 0; font-size: 11px; }
             #loginContainer, .no-print { display: none !important; }
-            .invoice-card { border: 1.5px solid #000 !important; box-shadow: none !important; margin: 0 !important; padding: 10px !important; max-width: 100% !important; width: 100% !important; }
-            .form-line input { background: transparent !important; border-bottom: 1px solid #000 !important; }
+            .invoice-card { border: 1.5px solid #000 !important; box-shadow: none !important; margin: 0 !important; padding: 8px 12px !important; max-width: 100% !important; width: 100% !important; }
+            .header-title { position: relative !important; min-height: 45px !important; margin-bottom: 8px !important; padding-bottom: 4px !important; }
+            .header-car-img { position: absolute !important; left: 5px !important; top: 2px !important; width: 90px !important; height: 40px !important; display: block !important; margin: 0 !important; }
+            .header-title h3 { text-align: center !important; font-size: 18px !important; }
+            .header-title p { text-align: center !important; }
+            .form-line { flex-direction: row !important; align-items: baseline !important; margin-bottom: 4px !important; }
+            .form-line label { margin-right: 4px !important; margin-top: 0 !important; }
+            .form-line input { background: transparent !important; border-bottom: 1px solid #000 !important; height: 20px !important; }
+            .table-items td, .table-items th { padding: 2px 5px !important; font-size: 11px !important; }
         }
     </style>
 </head>
@@ -183,7 +188,7 @@
     <!-- Ordem de Serviço Principal -->
     <div class="invoice-card">
         <div class="header-title">
-            <!-- Vetor SVG de Carro Esportivo Centralizado e Responsivo -->
+            <!-- Vetor SVG de Carro Esportivo -->
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path fill='%23222' d='M504 256c0-13.7-11.3-25-25-25H33.3c-13.7 0-25 11.3-25 25s11.3 25 25 25h445.7c13.7 0 25-11.3 25-25zm-22.3-51.4l-42-84c-5-10-15.3-16.6-26.6-16.6H136.9c-11.3 0-21.6 6.6-26.6 16.6l-42 84c-11.8 23.6-18 49.5-18 75.8v75.6c0 13.7 11.3 25 25 25s25-11.3 25-25v-25.6h352v25.6c0 13.7 11.3 25 25 25s25-11.3 25-25v-75.6c0-26.3-6.2-52.2-18-75.8zM148.6 133.6h214.8l32 64H116.6l32-64zM106 312c-19.9 0-36-16.1-36-36s16.1-36 36-36 36 16.1 36 36-16.1 36-36 36zm300 0c-19.9 0-36-16.1-36-36s16.1-36 36-36 36 16.1 36 36-16.1 36-36 36z'/></svg>" alt="Carro Esportivo" class="header-car-img">
             <h3 class="mb-1">Auto Mecânica Vadão</h3>
             <p class="mb-1 text-dark fw-bold" style="font-size: 11px; letter-spacing: 0.3px;">• Motor • Freio • Câmbio • Suspensão • Embreagem • Bateria • Troca de óleo e outros •</p>
